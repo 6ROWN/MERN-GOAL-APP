@@ -5,6 +5,9 @@ const {
 	updateGoal,
 	deleteGoal,
 } = require("../controllers/goalControllers");
+const { verifyToken } = require("../middleware/authToken");
+
+router.use(verifyToken);
 
 // Handling routes for the base URL ("/")
 router.route("/").get(getGoals).post(postGoal);
