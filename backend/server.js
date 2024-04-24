@@ -3,11 +3,25 @@ const { errorHandler } = require("./middleware/errorHandler");
 const dotenv = require("dotenv");
 const colors = require("colors");
 const connectDB = require("./config/db");
+const cors = require("cors");
+
 dotenv.config();
 
 connectDB();
 
 const app = express();
+
+// Enable CORS for all origins
+app.use(cors());
+// Enable CORS middleware
+app.use(function (req, res, next) {
+	res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // Allow requests from localhost:3000
+	res.header(
+		"Access-Control-Allow-Headers",
+		"Origin, X-Requested-With, Content-Type, Accept"
+	);
+	next();
+});
 
 // Middleware to parse incoming JSON requests and populate req.body
 app.use(express.json());
